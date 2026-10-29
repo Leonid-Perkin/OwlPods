@@ -175,7 +175,7 @@ export default class OwlPodsPreferences extends ExtensionPreferences {
         // ----------------------------------------------------
         const featuresPage = new Adw.PreferencesPage({
             title: 'Функции',
-            icon_name: 'emblem-favorite-symbolic',
+            icon_name: 'applications-engineering-symbolic',
         });
 
         const smartGroup = new Adw.PreferencesGroup({
@@ -191,6 +191,87 @@ export default class OwlPodsPreferences extends ExtensionPreferences {
 
         featuresPage.add(smartGroup);
         window.add(featuresPage);
+
+        // ----------------------------------------------------
+        // PAGE 4: О разработчике (heart icon — the "made with love" page)
+        // ----------------------------------------------------
+        const aboutPage = new Adw.PreferencesPage({
+            title: 'О разработчике',
+            icon_name: 'emblem-favorite-symbolic',
+        });
+
+        const authorGroup = new Adw.PreferencesGroup({
+            title: 'Разработчик',
+            description: 'OwlPods сделан с ❤️ для сообщества GNOME и владельцев AirPods.',
+        });
+
+        const authorRow = new Adw.ActionRow({
+            title: 'Леонид Перкин',
+            subtitle: 'Автор и разработчик проекта',
+        });
+        authorRow.add_suffix(new Gtk.LinkButton({
+            label: 'GitHub',
+            uri: 'https://github.com/Leonid-Perkin',
+            has_frame: false,
+            valign: Gtk.Align.CENTER,
+        }));
+        authorGroup.add(authorRow);
+
+        const projectGroup = new Adw.PreferencesGroup({
+            title: 'Проект OwlPods',
+        });
+
+        const sourceRow = new Adw.ActionRow({
+            title: 'Исходный код',
+            subtitle: 'Репозиторий проекта на GitHub',
+        });
+        sourceRow.add_suffix(new Gtk.LinkButton({
+            label: 'OwlPods',
+            uri: 'https://github.com/Leonid-Perkin/OwlPods',
+            has_frame: false,
+            valign: Gtk.Align.CENTER,
+        }));
+        projectGroup.add(sourceRow);
+
+        const issuesRow = new Adw.ActionRow({
+            title: 'Сообщить об ошибке',
+            subtitle: 'Баг-трекер проекта',
+        });
+        issuesRow.add_suffix(new Gtk.LinkButton({
+            label: 'Issues',
+            uri: 'https://github.com/Leonid-Perkin/OwlPods/issues',
+            has_frame: false,
+            valign: Gtk.Align.CENTER,
+        }));
+        projectGroup.add(issuesRow);
+
+        const licenseRow = new Adw.ActionRow({
+            title: 'Лицензия',
+            subtitle: 'Non-Commercial License — свободно для личного, учебного и исследовательского использования',
+        });
+        licenseRow.add_suffix(new Gtk.LinkButton({
+            label: 'LICENSE',
+            uri: 'https://github.com/Leonid-Perkin/OwlPods/blob/main/LICENSE',
+            has_frame: false,
+            valign: Gtk.Align.CENTER,
+        }));
+        projectGroup.add(licenseRow);
+
+        const appGroup = new Adw.PreferencesGroup({
+            title: 'Приложение',
+        });
+
+        const metaVersion = this.metadata && this.metadata.version ? this.metadata.version : 0;
+        const versionRow = new Adw.ActionRow({
+            title: 'Версия расширения',
+            subtitle: `OwlPods v${metaVersion} · owlpods@leonidperkin`,
+        });
+        appGroup.add(versionRow);
+
+        aboutPage.add(authorGroup);
+        aboutPage.add(projectGroup);
+        aboutPage.add(appGroup);
+        window.add(aboutPage);
     }
 
     _loadBluetoothDevices(model, combo, settings) {
