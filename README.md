@@ -54,6 +54,17 @@ glib-compile-schemas ~/.local/share/gnome-shell/extensions/owlpods@leonidperkin/
 gnome-extensions enable owlpods@leonidperkin
 ```
 
+## Сборка zip (build.sh)
+
+Скрипт собирает оба формата в `dist/` (нужны `glib-compile-schemas` и `python3`):
+
+```bash
+./build.sh
+```
+
+- `dist/owlpods-vN.zip` — ручная установка: внутри архива папка `owlpods@leonidperkin/`, распаковывается сразу в каталог расширений;
+- `dist/owlpods-ego-vN.zip` — формат для загрузки на [extensions.gnome.org](https://extensions.gnome.org): `metadata.json` лежит в корне архива (сайт отклоняет архивы с папкой-обёрткой).
+
 Проверка:
 
 ```bash

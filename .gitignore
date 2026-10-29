@@ -1,7 +1,8 @@
 # Compiled GSettings schema (glib-compile-schemas / glib-compile-resources)
 schemas/gschemas.compiled
 
-# Release artifacts
+# Release artifacts (build.sh output)
+dist/
 *.zip
 *.tar.gz
 
