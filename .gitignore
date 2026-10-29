@@ -1,0 +1,10 @@
+# Compiled GSettings schema (glib-compile-schemas / glib-compile-resources)
+schemas/gschemas.compiled
+
+# Release artifacts
+*.zip
+*.tar.gz
+
+# Editor / OS noise
+~$
+.DS_Store

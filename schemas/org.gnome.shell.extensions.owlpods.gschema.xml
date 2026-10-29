@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.owlpods" path="/org/gnome/shell/extensions/owlpods/">
+    <key name="selected-device-mac" type="s">
+      <default>""</default>
+      <summary>Selected AirPods MAC address</summary>
+      <description>MAC address of the chosen AirPods device, or empty to auto-detect.</description>
+    </key>
+    <key name="selected-device-name" type="s">
+      <default>""</default>
+      <summary>Selected AirPods Device Name</summary>
+      <description>Friendly name of the selected device.</description>
+    </key>
+    <key name="only-selected-device" type="b">
+      <default>false</default>
+      <summary>Filter to only selected device</summary>
+      <description>If true, ignore BLE packets from other nearby AirPods.</description>
+    </key>
+    <key name="rssi-threshold" type="i">
+      <default>-70</default>
+      <summary>RSSI Proximity Threshold</summary>
+      <description>Signal strength threshold in dBm. Packets below this strength will not trigger the popup (-100 to -35).</description>
+    </key>
+    <key name="popup-style" type="s">
+      <default>"ios"</default>
+      <summary>Popup Card Style</summary>
+      <description>Visual style and position of the card: 'ios' (bottom-center) or 'macos' (top-right banner).</description>
+    </key>
+    <key name="popup-duration" type="i">
+      <default>5</default>
+      <summary>Popup Display Duration</summary>
+      <description>Number of seconds before the animated popup auto-dismisses.</description>
+    </key>
+    <key name="show-popup-on-open" type="b">
+      <default>true</default>
+      <summary>Show popup on case lid open</summary>
+      <description>Display the animated card when the case is opened nearby.</description>
+    </key>
+    <key name="show-popup-on-connect" type="b">
+      <default>true</default>
+      <summary>Show popup on Bluetooth connection</summary>
+      <description>Display the animated card when AirPods connect to the computer.</description>
+    </key>
+    <key name="show-panel-indicator" type="b">
+      <default>true</default>
+      <summary>Show top panel indicator</summary>
+      <description>Display the battery indicator in the GNOME Shell top panel.</description>
+    </key>
+    <key name="panel-display-mode" type="s">
+      <default>"lowest"</default>
+      <summary>Top panel display mode</summary>
+      <description>Battery display mode on panel: 'lowest', 'compact', or 'icon'.</description>
+    </key>
+    <key name="ear-detection-pause" type="b">
+      <default>true</default>
+      <summary>Automatic Ear Detection Pause</summary>
+      <description>Pause media when an earbud is removed, and resume when put back in.</description>
+    </key>
+    <key name="low-battery-notification" type="b">
+      <default>true</default>
+      <summary>Low battery notifications</summary>
+      <description>Send system notifications when battery is lower than 20% or 10%.</description>
+    </key>
+    <key name="trigger-demo" type="i">
+      <default>0</default>
+      <summary>Trigger Demo Animation</summary>
+      <description>Counter used to trigger a test popup animation demo from the preferences window and panel menu.</description>
+    </key>
+  </schema>
+</schemalist>

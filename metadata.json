@@ -1,0 +1,11 @@
+{
+  "name": "OwlPods",
+  "description": "AirPods companion with iOS/macOS style animated popup card and battery monitor for AirPods Pro 3 and all AirPods models.",
+  "uuid": "owlpods@leonidperkin",
+  "shell-version": [
+    "51"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.owlpods",
+  "url": "https://github.com/Leonid-Perkin/OwlPods",
+  "version": 9
+}
