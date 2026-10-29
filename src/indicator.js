@@ -79,36 +79,39 @@ export const Indicator = GObject.registerClass({
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
-        // Demo Actions Section
-        const demoHeader = new PopupMenu.PopupMenuItem('Тестирование и Демо:', {
-            reactive: false,
-            style_class: 'owlpods-menu-section-header',
-        });
-        this.menu.addMenuItem(demoHeader);
-
-        const testOpenItem = new PopupMenu.PopupMenuItem('▶ Показать анимацию (Открытие кейса)');
-        testOpenItem.connect('activate', () => {
-            if (this._extension && this._extension._popupCard) {
-                this._extension._popupCard.showDemo('open_case');
+        // Replay the card entrance with the CURRENT live battery data.
+        // This is not a demo: it renders the same state the panel sees
+        // (freshest beacon/merge), and if nothing arrived yet this session
+        // it shows dashes rather than invented numbers.
+        const replayItem = new PopupMenu.PopupMenuItem('▶ Повтор анимации');
+        replayItem.connect('activate', () => {
+            const card = this._extension?._popupCard;
+            if (!card || card._destroyed) {
+                return;
             }
-        });
-        this.menu.addMenuItem(testOpenItem);
 
-        const testChargingItem = new PopupMenu.PopupMenuItem('⚡ Тест режима зарядки');
-        testChargingItem.connect('activate', () => {
-            if (this._extension && this._extension._popupCard) {
-                this._extension._popupCard.showDemo('charging');
+            const service = this._bluetoothService;
+            let name = this._currentState?.deviceName
+                || service?.getLatestState?.()?.deviceName
+                || 'AirPods Pro 3';
+            if (service?.isConnected?.() && service.getConnectedDeviceName) {
+                name = service.getConnectedDeviceName() || name;
             }
-        });
-        this.menu.addMenuItem(testChargingItem);
 
-        const testLowItem = new PopupMenu.PopupMenuItem('🪫 Тест низкого заряда');
-        testLowItem.connect('activate', () => {
-            if (this._extension && this._extension._popupCard) {
-                this._extension._popupCard.showDemo('low_battery');
+            let state = service?.getLatestState?.() || this._currentState;
+            if (!state) {
+                // No beacon has arrived yet this session.
+                state = {
+                    modelName: 'AirPods Pro 3',
+                    battery: { left: null, right: null, case: null },
+                    charging: { left: false, right: false, case: false },
+                    inEar: { left: false, right: false },
+                    isPairingMode: false,
+                };
             }
+            card.show(Object.assign({}, state, { deviceName: name }), { replay: true });
         });
-        this.menu.addMenuItem(testLowItem);
+        this.menu.addMenuItem(replayItem);
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 

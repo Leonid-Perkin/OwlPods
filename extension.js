@@ -64,14 +64,6 @@ export default class OwlPodsExtension extends Extension {
                 this._indicator.get_parent().remove_child(this._indicator);
             }
         });
-
-        // Trigger demo animation from preferences
-        this._triggerDemoChangedId = this._settings.connect('changed::trigger-demo', () => {
-            console.log('[OwlPods] Demo animation triggered from prefs');
-            if (this._popupCard) {
-                this._popupCard.showDemo('open_case');
-            }
-        });
     }
 
     // Sends system notifications when the battery of any part crosses
@@ -127,11 +119,6 @@ export default class OwlPodsExtension extends Extension {
         if (this._settingsChangedId) {
             this._settings.disconnect(this._settingsChangedId);
             this._settingsChangedId = 0;
-        }
-
-        if (this._triggerDemoChangedId) {
-            this._settings.disconnect(this._triggerDemoChangedId);
-            this._triggerDemoChangedId = 0;
         }
 
         if (this._bluetoothService) {

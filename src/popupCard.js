@@ -265,40 +265,7 @@ export const PopupCard = GObject.registerClass({
         return { box: col, ring, pctLabel, statusLabel, img };
     }
 
-    showDemo(scenario = 'open_case') {
-        let mockState;
-        if (scenario === 'charging') {
-            mockState = {
-                deviceName: 'AirPods Pro 3 (Тест)',
-                modelName: 'AirPods Pro 3',
-                battery: { left: 45, right: 50, case: 80 },
-                charging: { left: true, right: true, case: true },
-                inEar: { left: false, right: false },
-                isPairingMode: false,
-            };
-        } else if (scenario === 'low_battery') {
-            mockState = {
-                deviceName: 'AirPods Pro 3 (Тест)',
-                modelName: 'AirPods Pro 3',
-                battery: { left: 15, right: 20, case: 10 },
-                charging: { left: false, right: false, case: false },
-                inEar: { left: false, right: false },
-                isPairingMode: false,
-            };
-        } else {
-            mockState = {
-                deviceName: 'AirPods Pro 3 (Тест)',
-                modelName: 'AirPods Pro 3',
-                battery: { left: 85, right: 90, case: 65 },
-                charging: { left: false, right: false, case: true },
-                inEar: { left: false, right: false },
-                isPairingMode: false,
-            };
-        }
-        this.show(mockState);
-    }
-
-    show(state) {
+    show(state, { replay = false } = {}) {
         // NOTE: `_titleLabel` is created by _buildCard() below, so checking it
         // here would deadlock the very first show (the card would never be
         // built at all). `_destroyed` alone guards post-disable callbacks:
@@ -362,11 +329,12 @@ export const PopupCard = GObject.registerClass({
         this._container.show();
         this._container.opacity = 255;
 
-        if (!alreadyShowing) {
+        if (!alreadyShowing || replay) {
             // Entrance Spring Animation (iOS/macOS Style).
-            // Only on the actual appearance: refreshing content of an
-            // already visible card must not replay the animation
-            // (that read as "the demo keeps spinning").
+            // On the actual appearance, and on an explicit `replay` request
+            // (the panel menu's "Повтор анимации" action with live battery
+            // data). Content refresh of an already visible card must NOT
+            // replay the animation on its own.
             this._card.opacity = 0;
             this._card.scale_x = 0.82;
             this._card.scale_y = 0.82;

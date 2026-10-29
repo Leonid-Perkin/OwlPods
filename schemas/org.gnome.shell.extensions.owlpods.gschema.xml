@@ -61,10 +61,5 @@
       <summary>Low battery notifications</summary>
       <description>Send system notifications when battery is lower than 20% or 10%.</description>
     </key>
-    <key name="trigger-demo" type="i">
-      <default>0</default>
-      <summary>Trigger Demo Animation</summary>
-      <description>Counter used to trigger a test popup animation demo from the preferences window and panel menu.</description>
-    </key>
   </schema>
 </schemalist>

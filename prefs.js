@@ -171,10 +171,10 @@ export default class OwlPodsPreferences extends ExtensionPreferences {
         window.add(appearancePage);
 
         // ----------------------------------------------------
-        // PAGE 3: Функции и Тестирование анимации
+        // PAGE 3: Функции
         // ----------------------------------------------------
         const featuresPage = new Adw.PreferencesPage({
-            title: 'Функции и Демо',
+            title: 'Функции',
             icon_name: 'emblem-favorite-symbolic',
         });
 
@@ -190,31 +190,6 @@ export default class OwlPodsPreferences extends ExtensionPreferences {
         smartGroup.add(earDetectionRow);
 
         featuresPage.add(smartGroup);
-
-        // Demo Testing Group
-        const demoGroup = new Adw.PreferencesGroup({
-            title: 'Тестирование анимации',
-            description: 'Позволяет проверить анимацию карточки прямо сейчас на вашем мониторе.',
-        });
-
-        // Test Trigger Button
-        const testActionRow = new Adw.ActionRow({
-            title: 'Проверить анимацию сейчас',
-            subtitle: 'Вызывает появление карточки открытия кейса AirPods Pro 3',
-        });
-        const testBtn = new Gtk.Button({
-            label: 'Запустить',
-            valign: Gtk.Align.CENTER,
-            css_classes: ['suggested-action'],
-        });
-        testBtn.connect('clicked', () => {
-            const nextVal = (settings.get_int('trigger-demo') + 1) % 1000000;
-            settings.set_int('trigger-demo', nextVal);
-        });
-        testActionRow.add_suffix(testBtn);
-        demoGroup.add(testActionRow);
-
-        featuresPage.add(demoGroup);
         window.add(featuresPage);
     }
 
